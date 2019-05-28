@@ -9,7 +9,6 @@ import {
   FormControl, 
   Row, 
   Col, 
-  Container, 
   Card, 
   Button, 
   ButtonToolbar, 
@@ -52,7 +51,7 @@ class App extends React.Component {
 
     const pokemons = pokemon.map(({ national_id, description, name, art_url, types }) => {
       return (
-        <Col ref={ref => this._div = ref} key={name} md={4} style={{ marginBottom: 10, padding: 10 }}>
+        <Col ref={ref => this._div = ref} key={name} sm={12} md={4} style={{ marginBottom: 10, padding: 10 }}>
           <Card>
             <Card.Img variant="top" src={art_url} />
             <Card.Body>
