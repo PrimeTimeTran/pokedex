@@ -31,7 +31,8 @@ class App extends React.Component {
     this.state = {
       allPokemon: pokemon,
       pokemon,
-      types: uniqueValues
+      types: uniqueValues,
+      searchText: ''
     }
   }
 
@@ -89,12 +90,21 @@ class App extends React.Component {
               </NavDropdown>
             </Nav>
             <Form inline>
-              <FormControl type="text" placeholder="Search" className="mr-sm-2" />
+              <FormControl value={this.state.searchText}  onChange={(e) => this.handleSearchChange(e)} type="text" placeholder="Search" className="mr-sm-2" />
               <Button variant="outline-success">Search</Button>
             </Form>
           </Navbar.Collapse>
         </Navbar>
     )
+  }
+  handleSearchChange = (event) => {
+    let searchText = event.target.value.toLowerCase();
+    let pokemonsToShow = this.state.allPokemon.filter( 
+      p => p.name.toLowerCase().startsWith(searchText));
+    this.setState({
+      searchText: searchText,
+      pokemon: pokemonsToShow
+    });
   }
 
   onChange = (e) => {
