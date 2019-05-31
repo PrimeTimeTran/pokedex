@@ -151,6 +151,7 @@ class App extends React.Component {
 
 
   render() {
+    console.log('this.state', this.state)
     return (
       <div style={{ backgroundColor: 'yellow', padding: 20 }}>
           {this.renderNavBar()}
@@ -166,3 +167,4 @@ class App extends React.Component {
 }
 
 export default App;
+
