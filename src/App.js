@@ -45,9 +45,9 @@ class App extends React.Component {
   }
 
   handleSubmit(e) {
-    if(e.charCode==13){
+    if(e.charCode === 13){
       e.preventDefault()
-      alert('Enter clicked!!!');    
+      // alert('Enter clicked!!!');    
     } 
   }
 
@@ -107,21 +107,21 @@ class App extends React.Component {
         </Navbar>
     )
   }
+
   handleSearchChange = (event) => {
-    let searchText = event.target.value.toLowerCase();
-    let pokemonsToShow = this.state.allPokemon.filter( 
+    const searchText = event.target.value.toLowerCase();
+    const pokemon = this.state.allPokemon.filter( 
       p => p.name.toLowerCase().startsWith(searchText));
     this.setState({
-      searchText: searchText,
-      pokemon: pokemonsToShow
+      pokemon,
+      searchText,
     });
   }
 
-  onChange = (e) => {
-    const { allPokemon } = this.state
-    
-    let newPokemon = allPokemon.filter(poke => poke.types.some(r=> e.includes(r)))
-    this.setState({ pokemon: newPokemon })
+  onChange = e => {
+    let { allPokemon } = this.state
+    allPokemon = allPokemon.filter(pokemon => pokemon.types.some(type => e.includes(type)))
+    this.setState({ pokemon: allPokemon })
   }
 
   getTypeCount(type) {
