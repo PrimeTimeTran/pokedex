@@ -20,31 +20,35 @@ class App extends React.Component {
   constructor(props) {
     super(props)
     const pokemon = require('./pokemon.json')
-    const types = pokemon.map(poke => {
-      return poke.types
-    })
+    const types = pokemon.map(poke => poke.types)
     this.myRef = React.createRef()
     const merged = [].concat.apply([], types);
 
     const uniqueValues = [...new Set(merged)]; 
 
     this.state = {
-      allPokemon: pokemon,
       pokemon,
+      searchText: '',
+      allPokemon: pokemon,
       types: uniqueValues,
-      searchText: ''
     }
   }
 
   componentDidMount() {
     this._div.scrollTop = 10
-
   }
 
   renderPokemonType(types) {
     return types.map(type => {
       return <ListGroup.Item key={type} >{type.charAt(0).toUpperCase() + type.slice(1)}</ListGroup.Item>
     })
+  }
+
+  handleSubmit(e) {
+    if(e.charCode==13){
+      e.preventDefault()
+      alert('Enter clicked!!!');    
+    } 
   }
 
   renderPokemon() {
@@ -90,8 +94,14 @@ class App extends React.Component {
               </NavDropdown>
             </Nav>
             <Form inline>
-              <FormControl value={this.state.searchText}  onChange={(e) => this.handleSearchChange(e)} type="text" placeholder="Search" className="mr-sm-2" />
-              <Button variant="outline-success">Search</Button>
+              <FormControl 
+                type="text" 
+                className="mr-sm-2" 
+                placeholder="Search" 
+                value={this.state.searchText} 
+                onKeyPress={this.handleSubmit} 
+                onChange={e => this.handleSearchChange(e)} 
+              />
             </Form>
           </Navbar.Collapse>
         </Navbar>
@@ -144,24 +154,20 @@ class App extends React.Component {
 
   renderTotalCount() {
     const { pokemon } = this.state
-    console.log('la', pokemon.length)
     return <h1>Current Count: {pokemon.length}</h1>
   }
 
   go = () => {
-    console.log('go')
     this._div.scrollTop = 0
     window.scrollTo({
       top: 100,
       left: 100,
       behavior: 'smooth'
     })
-    console.log('go2')
   }
 
 
   render() {
-    console.log('this.state', this.state)
     return (
       <div style={{ backgroundColor: 'yellow', padding: 20 }}>
           {this.renderNavBar()}
